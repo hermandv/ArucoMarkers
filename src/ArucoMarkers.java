@@ -8,6 +8,7 @@ import processing.core.PImage;
 
 public class ArucoMarkers extends PApplet {
 	private PImage imageWinOriginal;
+	private PImage imageWinOutput;
 
 	public static void main(String[] args) {
 		PApplet.main("ArucoMarkers");
@@ -25,8 +26,8 @@ public class ArucoMarkers extends PApplet {
 	public void draw() {
 		background(100);
 
-		if (imageWinOriginal != null)
-			image(imageWinOriginal, 0, 0, 800, 800);
+		if (imageWinOutput != null)
+			image(imageWinOutput, 0, 0, 800, 800);
 	}
 
 	// This is a callback from file select window
@@ -37,13 +38,20 @@ public class ArucoMarkers extends PApplet {
 			System.out.println("User selected " + selected.getAbsolutePath());
 			PImage newImage = loadImage(selected.getAbsolutePath());
 			setOriginal(newImage);
-			newImage = OpenCVTools.detectAruco(newImage);
-			setOriginal(newImage);
+			setOutput(newImage);
 		}
 	}
 
 	public void setOriginal(PImage img) {
 		imageWinOriginal = img.copy();
+	}
+
+	public void setOutput(PImage img) {
+		imageWinOutput = img.copy();
+	}
+
+	public PImage getOriginal() {
+		return imageWinOriginal;
 	}
 
 	public void keyPressed() {
@@ -52,6 +60,11 @@ public class ArucoMarkers extends PApplet {
 		if (key == ' ') {
 			selectInput("Select a file to process:", "menuView_imageSelected");
 		} else if (key == '1') {
+			PImage newImage = OpenCVTools.detectAruco(getOriginal());
+			setOutput(newImage);
+		} else if (key == '2') {
+			PImage newImage = OpenCVTools.detectArucoAndCrop(getOriginal());
+			setOutput(newImage);
 		} else if (key == 'q') { // lab
 		} else if (keyCode == UP) {
 		} else if (keyCode == DOWN) {
