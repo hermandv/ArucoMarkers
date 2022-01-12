@@ -4,10 +4,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-amd64.jar"/>
-	<classpathentry kind="lib" path="lib/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="lib/jogl-all.jar"/>
 	<classpathentry kind="lib" path="lib/peasy-math.jar"/>
 	<classpathentry kind="lib" path="lib/peasycam.jar"/>
@@ -17,5 +15,26 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/geomerative.jar"/>
+	<classpathentry kind="lib" path="lib/video.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/other/ArucoMarkers/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/serial.jar"/>
+	<classpathentry kind="lib" path="lib/gstreamer-java.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/other/ArucoMarkers/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jna.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/other/ArucoMarkers/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jssc.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/other/ArucoMarkers/dll/windows64"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

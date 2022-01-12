@@ -195,7 +195,7 @@ public class OpenCVTools {
 		Aruco.detectMarkers(image, dictionary, corners, ids);
 
 		if (corners.size() > 0) {
-			Aruco.drawDetectedMarkers(imageCopy, corners);
+			Aruco.drawDetectedMarkers(imageCopy, corners, ids);
 		}
 
 		return getSnapshot(imageCopy);
@@ -212,28 +212,35 @@ public class OpenCVTools {
 		Aruco.detectMarkers(image, dictionary, corners, ids);
 		List<Point> cropCorners = new ArrayList<>();
 		if (corners.size() > 0) {
-			Aruco.drawDetectedMarkers(imageCopy, corners);
+			Aruco.drawDetectedMarkers(imageCopy, corners, ids);
 		}
 
-		cropCorners.add(new Point(corners.get(2).get(0, 0)));
-		cropCorners.add(new Point(corners.get(3).get(0, 0)));
-		cropCorners.add(new Point(corners.get(0).get(0, 0)));
-		cropCorners.add(new Point(corners.get(1).get(0, 0)));
+		for (int id = 0; id < 4; id++) {
+			for (int i = 0; i < ids.size().height; i++) {
+				if (ids.get(i, 0)[0] == (id + 1)) {
+					cropCorners.add(new Point(corners.get(i).get(0, 0)));
+				}
+			}
+		}
 
+		System.out.println("IDs: " + ids);
 		System.out.println("Corners: " + cropCorners);
 
 		List<Point> target = new ArrayList<>();
 		target.add(new Point(0, 0));
-		target.add(new Point(900, 0));
-		target.add(new Point(0, 900));
-		target.add(new Point(900, 900));
+		target.add(new Point(90, 0));
+		target.add(new Point(0, 90));
+		target.add(new Point(90, 90));
 
 		System.out.println("Target: " + target);
+
+		if (cropCorners.size() != 4)
+			return inputFrame;
 
 		Mat trans = Imgproc.getPerspectiveTransform(Converters.vector_Point2f_to_Mat(cropCorners), Converters.vector_Point2f_to_Mat(target));
 		Imgproc.warpPerspective(image, imageCopy, trans, imageCopy.size());
 
-		Rect rectCrop = new Rect(0, 0, 900, 900);
+		Rect rectCrop = new Rect(0, 0, 90, 90);
 		imageCopy = new Mat(imageCopy, rectCrop);
 
 		return getSnapshot(imageCopy);

@@ -3,12 +3,14 @@ import java.io.File;
 import org.opencv.core.Core;
 
 import common.OpenCVTools;
+import common.WebCamVid;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class ArucoMarkers extends PApplet {
 	private PImage imageWinOriginal;
 	private PImage imageWinOutput;
+	private final WebCamVid video = WebCamVid.getInstance();
 
 	public static void main(String[] args) {
 		PApplet.main("ArucoMarkers");
@@ -21,6 +23,8 @@ public class ArucoMarkers extends PApplet {
 	}
 
 	public void setup() {
+		WebCamVid.getInstance().init(this);
+		video.openVideoStream();
 	}
 
 	public void draw() {
@@ -57,16 +61,25 @@ public class ArucoMarkers extends PApplet {
 	public void keyPressed() {
 		System.out.println("Key code pressed: " + keyCode);
 
-		if (key == ' ') {
-			selectInput("Select a file to process:", "menuView_imageSelected");
+		if (key == 'w') {
+//			selectInput("Select a file to process:", "menuView_imageSelected");
+			video.openVideoStream();
 		} else if (key == '1') {
+			PImage vidImg = WebCamVid.getInstance().getVideoImage();
+			setOriginal(vidImg);
 			PImage newImage = OpenCVTools.detectAruco(getOriginal());
 			setOutput(newImage);
 		} else if (key == '2') {
+			PImage vidImg = WebCamVid.getInstance().getVideoImage();
+			setOriginal(vidImg);
 			PImage newImage = OpenCVTools.detectArucoAndCrop(getOriginal());
 			setOutput(newImage);
 		} else if (key == 'q') { // lab
-		} else if (keyCode == UP) {
+		} else if (key == ' ') {
+			PImage vidImg = WebCamVid.getInstance().getVideoImage();
+			setOriginal(vidImg);
+			setOutput(vidImg);
+
 		} else if (keyCode == DOWN) {
 		} else if (keyCode == RIGHT) {
 		} else if (keyCode == LEFT) {
